@@ -1,0 +1,359 @@
+/* #region - CSS Reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*#endregion*/
+/* #region - VARIABLES */
+:root {
+    /* Colors */
+    --navy: #324759;
+    --slate: #5A758C;
+    --sky: #CDDCEA; /* A3B2BF */ /* c5d7e7 */
+    --ice: #e0eefd;
+    --req: #b70449;
+    /* Shadows */
+    --shadow: 0 2px 10px var(--navy);
+    --shadow-sm: 0 2px 2px var(--navy);
+    /* Font Stacks */
+    --content: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    --headings: "forevs", Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+    --script: "rafaella", cursive;
+}
+/* #endregion */
+/* #region - BG-TEXTURE*/
+/* For the Background texture taken from https://css-pattern.com/arabesque-style */
+html {
+    --s: 41px;                  /* control the size*/
+    --c1: #c5d7e7;
+    --c2: #cddcea;
+    
+    --t: calc(var(--s)/10);     /* control the thickness */
+    --_c: #0000 calc(98% - var(--t)),var(--c1) calc(100% - var(--t)) 98%,#0000;
+    --_s: calc(2*var(--s)) calc(5*var(--s)/2);
+    --_r0: /var(--_s) radial-gradient(calc(var(--s)/2) at 0    20%,var(--_c));
+    --_r1: /var(--_s) radial-gradient(calc(var(--s)/2) at 100% 20%,var(--_c));
+    background:
+        0 0 var(--_r0),calc(-1*var(--s)) calc(5*var(--s)/4) var(--_r0),
+        var(--s) 0 var(--_r1),0 calc(5*var(--s)/4) var(--_r1),
+        conic-gradient(at var(--t) calc(20% + 2*var(--t)),#0000 75%,var(--c1) 0)
+        calc(var(--t)/-2) calc(var(--s) - var(--t))/var(--s) calc(5*var(--s)/4),
+        repeating-conic-gradient(var(--c2) 0 100%,#0000 0 100%) /* I didn't like the central cross so I changed this line to 100% for both values to remove it */
+        var(--s) calc(var(--s)/-8)/var(--_s),
+        conic-gradient(from 90deg at var(--t) var(--t),var(--c2) 25%,var(--c1) 0) 
+        calc((var(--s) - var(--t))/2) calc((var(--s) - var(--t))/2)/var(--s) calc(5*var(--s)/4);
+}
+/* #endBG-TEXTURE */
+
+body {
+    font-family: var(--content);
+    line-height: 1.45;
+    color: var(--slate);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--sky);
+    border-bottom: 2px solid var(--navy);
+    box-shadow: var(--shadow);
+}
+
+h1, h2, h3 {
+    font-family: var(--headings);
+    color: var(--navy);
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0.67rem 1rem;
+    letter-spacing: 4px;
+}
+h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav ul {
+    margin: 0.67rem 5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+}
+
+nav ul a {
+    display: inline-block;
+    font-family: var(--headings);
+    font-size: 2rem;
+    text-decoration: none;
+    color: var(--navy);
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+}
+
+nav ul a:hover {
+    border-top: 3px solid var(--navy);
+    border-bottom: 3px solid var(--navy);
+}
+
+a.active {
+    border-top: 3px solid var(--slate);
+    border-bottom: 3px solid var(--slate);
+}
+
+header img {
+    margin-top: 5.5rem;
+    width: 100%;
+    height: auto;
+    border-bottom: 3px solid var(--slate);
+    box-shadow: var(--shadow);
+}
+
+main, footer {
+    width: 60vw;
+    margin: 0 auto;
+}
+
+main {
+    padding: 1rem 2rem;
+    margin: -1rem auto;
+    background-color: var(--ice);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    line-height: 1.45;
+}
+
+h2 {
+    font-family: var(--script);
+    font-size: 2rem;
+    margin: 3rem auto 1.5rem auto;
+    letter-spacing: 4px;
+}
+
+h3 {
+    font-size: 2rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+p {
+    margin: 0.67em auto;
+    max-width: 65ch;
+}
+
+section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 0.5fr 2fr;
+    grid-template-areas: 
+        "picture header"
+        "picture text";
+    margin: 2.5rem auto;
+    gap: 0 2rem;
+    align-items: center;
+}
+
+section img {
+    grid-area: picture;
+    width: 100%;
+    height: auto;
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+}
+
+section h3 {
+    grid-area: header;
+    margin: 1rem;
+}
+
+section p {
+    grid-area: text;
+    padding: 0 1rem;
+}
+
+#contact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 0.5fr 1fr 4fr;
+    grid-template-areas: 
+        "header ."
+        "text form"
+        "picture form";
+    margin: 2.5rem auto;
+    gap: 0 2rem;
+    align-items: center;
+}
+
+#contact h2 {
+    grid-area: header;
+    justify-items: start;
+    text-align: left;
+    margin: 1rem 0 0 0.8rem;
+}
+
+#contact p {
+    grid-area: text;
+    padding: 0 0 0.5rem 0;
+}
+
+#contact img {
+    grid-area: picture;
+}
+
+#contact form {
+    grid-area: form;
+
+}
+
+.required {
+    font-weight: bold;
+    color: var(--req);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+}
+
+label {
+    margin: 1rem 3rem 0 0;
+}
+
+input, textarea {
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 2px solid var(--ice);
+    box-shadow: inset var(--shadow-sm);
+}
+
+/* Change the default focus so we can override it when invalid */
+input:focus, textarea:focus {
+    outline: none;
+    border: 2px solid var(--ice);
+}
+
+input:focus:invalid,
+textarea:focus:invalid {
+    border: 2px solid var(--req);
+}
+
+input:invalid,
+textarea:invalid {
+    border: 2px solid var(--slate);
+}
+
+fieldset {
+    border: 2px solid var(--slate);
+    padding: 0.35rem 0.75rem 0.75rem;
+}
+
+textarea {
+    min-height: 4rem;
+}
+
+input[type=radio] {
+    appearance: none;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+}
+input[type=radio] + label::before {
+    content: "\00a0";  /* Space */
+    border-radius: 20px;
+    display: inline-block;
+    width: 1.5em;  height: 1.5em; 
+    text-align: center;
+    line-height: 1.5em;
+    font-size: 1em;
+    margin-right: 10px;
+    background-color: white;
+    border: 0.125em solid var(--slate);
+}
+
+input[type=radio]:checked + label::before {
+   content: "\2022";  /* Bullet */
+   color: white;
+   background-color: var(--navy);
+   border: 0.125em solid white;
+   box-shadow: 0 0 3px black;
+}
+
+input[type="submit"] {
+    background-color: var(--slate);
+    font-family: var(--script);
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    color: var(--ice);
+    border-radius: 10px;
+    padding: 0.5rem;
+    box-shadow: none;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--sky);
+    color: var(--navy);
+    box-shadow: var(--shadow);
+}
+
+footer {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: var(--navy);
+    color: var(--ice);
+    text-align: center;
+    font-size: 0.8rem;
+}
